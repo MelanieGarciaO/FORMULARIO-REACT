@@ -1,6 +1,27 @@
 import React, { useState } from 'react';
 import './Formulario.css';
 
+// ── Íconos SVG ───────────────────────────────────────────────────────────────
+
+function IconoOjo() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+    </svg>
+  );
+}
+
+function IconoOjoOculto() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
+      <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
+      <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"/>
+    </svg>
+  );
+}
+
 // ── Funciones de validación ──────────────────────────────────────────────────
 
 function validarNombre(valor) {
@@ -21,6 +42,17 @@ function validarCorreo(valor) {
 function validarContrasena(valor) {
   if (!valor) return 'La contraseña es obligatoria.';
   if (valor.length < 8) return 'La contraseña debe tener al menos 8 caracteres.';
+  return '';
+}
+
+function validarConfirmar(valor, contrasena) {
+  if (!valor) return 'Por favor confirma tu contraseña.';
+  if (valor !== contrasena) return 'Las contraseñas no coinciden.';
+  return '';
+}
+
+function validarTerminos(aceptado) {
+  if (!aceptado) return 'Debes aceptar los términos y condiciones.';
   return '';
 }
 
@@ -71,25 +103,37 @@ function Formulario() {
     nombre:     '',
     correo:     '',
     contrasena: '',
+    confirmar:  '',
   });
 
   const [tocados, setTocados] = useState({
     nombre:     false,
     correo:     false,
     contrasena: false,
+    confirmar:  false,
+    terminos:   false,
   });
 
-  const [enviado, setEnviado] = useState(false);
+  const [terminos, setTerminos]     = useState(false);
+  const [enviado,  setEnviado]      = useState(false);
+  const [verContrasena, setVerContrasena] = useState(false);
+  const [verConfirmar,  setVerConfirmar]  = useState(false);
 
   // Errores calculados en tiempo real
   const errores = {
     nombre:     validarNombre(valores.nombre),
     correo:     validarCorreo(valores.correo),
     contrasena: validarContrasena(valores.contrasena),
+    confirmar:  validarConfirmar(valores.confirmar, valores.contrasena),
+    terminos:   validarTerminos(terminos),
   };
 
   const formularioValido =
-    !errores.nombre && !errores.correo && !errores.contrasena;
+    !errores.nombre &&
+    !errores.correo &&
+    !errores.contrasena &&
+    !errores.confirmar &&
+    !errores.terminos;
 
   function handleChange(campo) {
     return (e) => {
@@ -102,14 +146,30 @@ function Formulario() {
     return () => setTocados((prev) => ({ ...prev, [campo]: true }));
   }
 
+  function handleTerminos(e) {
+    setTerminos(e.target.checked);
+    setTocados((prev) => ({ ...prev, terminos: true }));
+    setEnviado(false);
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
-    setTocados({ nombre: true, correo: true, contrasena: true });
+    setTocados({
+      nombre: true, correo: true, contrasena: true,
+      confirmar: true, terminos: true,
+    });
     if (!formularioValido) return;
 
     setEnviado(true);
-    setValores({ nombre: '', correo: '', contrasena: '' });
-    setTocados({ nombre: false, correo: false, contrasena: false });
+    setValores({ nombre: '', correo: '', contrasena: '', confirmar: '' });
+    setTocados({ nombre: false, correo: false, contrasena: false, confirmar: false, terminos: false });
+    setTerminos(false);
+  }
+
+  // Helper: clases Bootstrap para cada input
+  function claseInput(campo) {
+    if (!tocados[campo]) return 'form-control';
+    return `form-control ${errores[campo] ? 'is-invalid' : 'is-valid'}`;
   }
 
   return (
@@ -140,11 +200,7 @@ function Formulario() {
             <input
               id="nombre"
               type="text"
-              className={`form-control ${
-                tocados.nombre
-                  ? errores.nombre ? 'is-invalid' : 'is-valid'
-                  : ''
-              }`}
+              className={claseInput('nombre')}
               value={valores.nombre}
               onChange={handleChange('nombre')}
               onBlur={handleBlur('nombre')}
@@ -163,11 +219,7 @@ function Formulario() {
             <input
               id="correo"
               type="email"
-              className={`form-control ${
-                tocados.correo
-                  ? errores.correo ? 'is-invalid' : 'is-valid'
-                  : ''
-              }`}
+              className={claseInput('correo')}
               value={valores.correo}
               onChange={handleChange('correo')}
               onBlur={handleBlur('correo')}
@@ -183,21 +235,30 @@ function Formulario() {
             <label htmlFor="contrasena" className="form-label fw-semibold">
               Contraseña
             </label>
-            <input
-              id="contrasena"
-              type="password"
-              className={`form-control ${
-                tocados.contrasena
-                  ? errores.contrasena ? 'is-invalid' : 'is-valid'
-                  : ''
-              }`}
-              value={valores.contrasena}
-              onChange={handleChange('contrasena')}
-              onBlur={handleBlur('contrasena')}
-              placeholder="Mínimo 8 caracteres"
-            />
+            <div className="input-group">
+              <input
+                id="contrasena"
+                type={verContrasena ? 'text' : 'password'}
+                className={claseInput('contrasena')}
+                value={valores.contrasena}
+                onChange={handleChange('contrasena')}
+                onBlur={handleBlur('contrasena')}
+                placeholder="Mínimo 8 caracteres"
+              />
+              <button
+                type="button"
+                className="btn btn-outline-secondary"
+                onClick={() => setVerContrasena((v) => !v)}
+                tabIndex={-1}
+                title={verContrasena ? 'Ocultar' : 'Mostrar'}
+              >
+                {verContrasena ? <IconoOjoOculto /> : <IconoOjo />}
+              </button>
+            </div>
             {tocados.contrasena && errores.contrasena && (
-              <div className="invalid-feedback">{errores.contrasena}</div>
+              <div className="text-danger mt-1" style={{ fontSize: '0.875em' }}>
+                {errores.contrasena}
+              </div>
             )}
           </div>
 
@@ -206,9 +267,77 @@ function Formulario() {
             <IndicadorFortaleza contrasena={valores.contrasena} />
           )}
 
+          {/* ── Confirmar contraseña ── */}
+          <div className="mb-3">
+            <label htmlFor="confirmar" className="form-label fw-semibold">
+              Confirmar contraseña
+            </label>
+            <div className="input-group">
+              <input
+                id="confirmar"
+                type={verConfirmar ? 'text' : 'password'}
+                className={claseInput('confirmar')}
+                value={valores.confirmar}
+                onChange={handleChange('confirmar')}
+                onBlur={handleBlur('confirmar')}
+                placeholder="Repite tu contraseña"
+              />
+              <button
+                type="button"
+                className="btn btn-outline-secondary"
+                onClick={() => setVerConfirmar((v) => !v)}
+                tabIndex={-1}
+                title={verConfirmar ? 'Ocultar' : 'Mostrar'}
+              >
+                {verConfirmar ? <IconoOjoOculto /> : <IconoOjo />}
+              </button>
+            </div>
+            {tocados.confirmar && errores.confirmar && (
+              <div className="text-danger mt-1" style={{ fontSize: '0.875em' }}>
+                {errores.confirmar}
+              </div>
+            )}
+            {tocados.confirmar && !errores.confirmar && (
+              <div className="text-success mt-1" style={{ fontSize: '0.875em' }}>
+                ✓ Las contraseñas coinciden.
+              </div>
+            )}
+          </div>
+
+          {/* ── Términos y condiciones ── */}
+          <div className="mb-4">
+            <div className="form-check">
+              <input
+                id="terminos"
+                type="checkbox"
+                className={`form-check-input ${
+                  tocados.terminos
+                    ? errores.terminos ? 'is-invalid' : 'is-valid'
+                    : ''
+                }`}
+                checked={terminos}
+                onChange={handleTerminos}
+              />
+              <label htmlFor="terminos" className="form-check-label">
+                Acepto los{' '}
+                <a href="#terminos" className="text-primary">
+                  términos y condiciones
+                </a>{' '}
+                y la{' '}
+                <a href="#privacidad" className="text-primary">
+                  política de privacidad
+                </a>
+                .
+              </label>
+              {tocados.terminos && errores.terminos && (
+                <div className="invalid-feedback">{errores.terminos}</div>
+              )}
+            </div>
+          </div>
+
           <button
             type="submit"
-            className="btn btn-primary w-100 py-2 fw-semibold mt-2"
+            className="btn btn-primary w-100 py-2 fw-semibold"
           >
             Registrarse
           </button>
