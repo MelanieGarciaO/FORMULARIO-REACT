@@ -53,20 +53,29 @@ npm start
 ## Estructura del Proyecto
 
 ```text
-src/
+formulario-react/
 │
-├── assets/
-│   └── fondo.jpg
+├── screenshots/
+│   └── formulario.png
 │
-├── components/
-│   ├── Formulario.js
-│   └── Formulario.css
+├── src/
+│   ├── assets/
+│   │   └── fondo.jpg
+│   │
+│   ├── components/
+│   │   ├── Formulario.js
+│   │   └── Formulario.css
+│   │
+│   ├── App.js
+│   ├── index.js
+│   └── index.css
 │
-├── App.js
-├── index.js
-└── index.css
+├── public/
+│   └── index.html
+│
+├── package.json
+└── README.md
 ```
-
 ## Funcionalidades
 
 * Registro de usuario con cinco campos: nombre, correo, contraseña, confirmación de contraseña y aceptación de términos.
@@ -116,7 +125,7 @@ La contraseña debe contener al menos:
 
 ## Captura del sistema
 
-![Captura del formulario](./screenshots/Captura%20de%20pantalla%202026-06-18%20224500.png)
+![Captura del formulario](screenshots/formulario.png)
 
 ## Autor
 
