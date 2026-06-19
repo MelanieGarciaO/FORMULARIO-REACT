@@ -1,70 +1,101 @@
-# Getting Started with Create React App
+# Sistema de Registro - React y Bootstrap
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Descripción
 
-## Available Scripts
+Este proyecto consiste en un formulario de registro desarrollado con React y Bootstrap. Permite ingresar nombre, correo electrónico y contraseña, aplicando validaciones dinámicas en tiempo real para mejorar la experiencia del usuario.
 
-In the project directory, you can run:
+## Objetivos
 
-### `npm start`
+* Implementar un formulario utilizando React.
+* Aplicar estilos mediante Bootstrap.
+* Utilizar el Hook `useState` para controlar los campos del formulario.
+* Validar el formato del correo electrónico.
+* Validar que la contraseña tenga al menos 8 caracteres.
+* Mostrar mensajes de error dinámicos.
+* Mostrar un mensaje de registro exitoso cuando los datos sean válidos.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tecnologías Utilizadas
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* React
+* Bootstrap 5
+* JavaScript
+* HTML5
+* CSS3
 
-### `npm test`
+## Instalación
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clonar el repositorio:
 
-### `npm run build`
+```bash
+git clone <url-del-repositorio>
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Ingresar a la carpeta del proyecto:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+cd formulario-react
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Instalar dependencias:
 
-### `npm run eject`
+```bash
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. Ejecutar el proyecto:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Estructura del Proyecto
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```text
+src/
+│
+├── assets/
+│   └── fondo.jpg
+│
+├── components/
+│   ├── Formulario.js
+│   └── Formulario.css
+│
+├── App.js
+├── index.js
+└── index.css
+```
 
-## Learn More
+## Funcionalidades
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* Registro de usuario.
+* Validación de correo electrónico en tiempo real.
+* Validación de contraseña con mínimo 8 caracteres.
+* Mensajes de error dinámicos.
+* Diseño responsivo.
+* Fondo personalizado con imagen.
+* Mensaje de registro exitoso.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Validaciones Implementadas
 
-### Code Splitting
+### Correo Electrónico
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+El sistema verifica que el correo tenga un formato válido:
 
-### Analyzing the Bundle Size
+usuario@dominio.com
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+### Contraseña
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+La contraseña debe contener al menos:
 
-### Advanced Configuration
+* 8 caracteres.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Captura de Pantalla
 
-### Deployment
+Agregar aquí una captura del formulario funcionando.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Autor
 
-### `npm run build` fails to minify
+Desarrollado como práctica de la Unidad 2: Frameworks (React + CSS Framework).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Melanie Garcia Obregón
