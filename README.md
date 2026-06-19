@@ -116,7 +116,8 @@ La contraseña debe contener al menos:
 
 ## Captura del sistema
 
-![Captura del formulario](.\screenshots\Captura de pantalla 2026-06-18 224500.png
+![Captura del formulario](./screenshots/Captura%20de%20pantalla%202026-06-18%20224500.png)
+
 ## Autor
 
 Desarrollado como práctica de la Unidad 2: Frameworks (React + CSS Framework).
