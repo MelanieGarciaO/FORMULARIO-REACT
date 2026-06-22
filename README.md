@@ -121,7 +121,6 @@ La contraseña debe contener al menos:
 
 * El checkbox debe estar marcado para poder enviar el formulario.
 
-## Captura de Pantalla
 
 ## Captura del sistema
 
